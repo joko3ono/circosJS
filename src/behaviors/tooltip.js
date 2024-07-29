@@ -1,9 +1,9 @@
-import {select, event} from 'd3-selection'
+import {selection as event} from 'd3';
 import 'd3-transition'
 
-import './tooltip.css'
+// import './tooltip.css'
 
-export function registerTooltip (track, instance, element, trackParams) {
+export function registerTooltip (track, instance, _element, trackParams) {
   track.dispatch.on('mouseover', (d) => {
     instance.tip
       .html(trackParams.tooltipContent(d))
@@ -13,7 +13,7 @@ export function registerTooltip (track, instance, element, trackParams) {
       .style('top', (event.pageY - 28) + 'px')
   })
 
-  track.dispatch.on('mouseout', (d) => {
+  track.dispatch.on('mouseout', (_d) => {
     instance.tip
       .transition()
       .duration(500)

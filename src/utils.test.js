@@ -1,6 +1,10 @@
-import {smartBorders, computeMinMax, buildScale} from './utils'
-import {forEach} from 'lodash'
-import {expect} from 'chai'
+import {smartBorders, computeMinMax, buildScale} from './utils.js'
+import forEach from 'lodash-es/forEach.js'
+let chai;
+beforeAll(async () => {
+  chai = await import('chai');
+});
+let { expect } = chai;
 
 describe('utils', () => {
   describe('smartBorders', () => {

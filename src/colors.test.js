@@ -1,7 +1,11 @@
 import { describe, it } from 'mocha'
-import { expect } from 'chai'
-import { buildColorValue } from './colors'
-import forEach from 'lodash/forEach'
+import { buildColorValue } from './colors.js'
+import forEach from 'lodash-es/forEach.js'
+let chai;
+beforeAll(async () => {
+  chai = await import('chai');
+});
+let { expect } = chai;
 
 describe('colors', () => {
   describe('buildColorValue', () => {

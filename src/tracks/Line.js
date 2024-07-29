@@ -1,9 +1,9 @@
-import Track from './Track'
-import {parsePositionValueData} from '../data-parser'
-import assign from 'lodash/assign'
-import reduce from 'lodash/reduce'
-import sortBy from 'lodash/sortBy'
-import {axes, radial, common, values} from '../configs'
+import Track from './Track.js'
+import {parsePositionValueData} from '../data-parser.js'
+import assign from 'lodash-es/assign.js'
+import reduce from 'lodash-es/reduce.js'
+import sortBy from 'lodash-es/sortBy.js'
+import {axes, radial, common, values} from '../configs.js'
 import {curveLinear, radialLine, radialArea} from 'd3-shape'
 
 const defaultConf = assign({

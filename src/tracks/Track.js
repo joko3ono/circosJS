@@ -1,11 +1,11 @@
-import {registerTooltip} from '../behaviors/tooltip'
+import {registerTooltip} from '../behaviors/tooltip.js'
 import {dispatch} from 'd3-dispatch'
 import {arc} from 'd3-shape'
-import {select, event} from 'd3-selection'
-import {getConf} from '../config-utils'
-import {buildScale} from '../utils'
-import {buildColorValue} from '../colors'
-import {renderAxes} from '../axes'
+import {selection as event} from 'd3';
+import {getConf} from '../config-utils.js'
+import {buildScale} from '../utils.js'
+import {buildColorValue} from '../colors.js'
+import {renderAxes} from '../axes.js'
 
 /**
  * Abstract class used by all tracks

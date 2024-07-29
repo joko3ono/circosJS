@@ -1,9 +1,8 @@
-import keys from 'lodash/keys'
-import includes from 'lodash/includes'
-import every from 'lodash/every'
-import map from 'lodash/map'
-import {nest} from 'd3-collection'
-import {min, max} from 'd3-array'
+import keys from 'lodash-es/keys.js'
+import includes from 'lodash-es/includes.js'
+import every from 'lodash-es/every.js'
+import map from 'lodash-es/map.js'
+import {min, max, group} from 'd3-array'
 
 const logger = console
 
@@ -48,8 +47,11 @@ function normalize (data, idKeys) {
 }
 
 function buildOutput (data) {
+  const groupedData = group(data, datum => datum.block_id);
+  const groupedDataArray = Array.from(groupedData, ([key, values]) => ({key, values}));
+
   return {
-    data: nest().key((datum) => datum.block_id).entries(data),
+    data: groupedDataArray,
     meta: {
       min: min(data, (d) => d.value),
       max: max(data, (d) => d.value)

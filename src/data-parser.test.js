@@ -1,6 +1,10 @@
-import { parseSpanValueData } from './data-parser'
-import { forEach } from 'lodash'
-import { expect } from 'chai'
+import { parseSpanValueData } from './data-parser.js'
+import forEach from 'lodash-es/forEach.js'
+let chai;
+beforeAll(async () => {
+  chai = await import('chai');
+});
+let { expect } = chai;
 
 describe('dataParser', () => {
   describe('parseSpanValueData', () => {

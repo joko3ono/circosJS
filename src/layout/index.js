@@ -1,8 +1,8 @@
-import cloneDeep from 'lodash/cloneDeep'
-import defaultsDeep from 'lodash/defaultsDeep'
-import reduce from 'lodash/reduce'
-import forEach from 'lodash/forEach'
-import defaultConf from './conf'
+import cloneDeep from 'lodash-es/cloneDeep.js'
+import defaultsDeep from 'lodash-es/defaultsDeep.js'
+import reduce from 'lodash-es/reduce.js'
+import forEach from 'lodash-es/forEach.js'
+import defaultConf from './conf.js'
 
 const logger = console
 

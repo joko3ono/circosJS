@@ -1,5 +1,5 @@
 import clipboard from 'clipboard-js'
-import {select} from 'd3-selection'
+import {selection as select} from 'd3';
 
 export const initClipboard = (container) => {
   const input = select(container)

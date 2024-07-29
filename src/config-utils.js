@@ -1,8 +1,8 @@
-import cloneDeep from 'lodash/cloneDeep'
-import forEach from 'lodash/forEach'
-import isFunction from 'lodash/isFunction'
-import assign from 'lodash/assign'
-import {smartBorders} from './utils'
+import cloneDeep from 'lodash-es/cloneDeep.js'
+import forEach from 'lodash-es/forEach.js'
+import isFunction from 'lodash-es/isFunction.js'
+import assign from 'lodash-es/assign.js'
+import {smartBorders} from './utils.js'
 
 const buildConf = (userConf = {}, defaultConf) => {
   let conf = {}

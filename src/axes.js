@@ -1,7 +1,7 @@
-import range from 'lodash/range'
-import reduce from 'lodash/reduce'
+import range from 'lodash-es/range.js'
+import reduce from 'lodash-es/reduce.js'
 import {arc} from 'd3-shape'
-import logger from './logger'
+import logger from './logger.js'
 
 const _buildAxisData = (value, axesGroup, conf) => {
   return {

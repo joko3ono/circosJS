@@ -1,9 +1,9 @@
-import sortBy from 'lodash/fp/sortBy'
-import flow from 'lodash/fp/flow'
-import concat from 'lodash/fp/concat'
-import filter from 'lodash/fp/filter'
-import first from 'lodash/fp/first'
-import reverse from 'lodash/fp/reverse'
+import sortBy from 'lodash-es/sortBy.js'
+import flow from 'lodash-es/flow.js'
+import concat from 'lodash-es/concat.js'
+import filter from 'lodash-es/filter.js'
+import first from 'lodash-es/first.js'
+import reverse from 'lodash-es/reverse.js'
 import {scaleLog, scaleLinear} from 'd3-scale'
 
 export function smartBorders (conf, layout, tracks) {

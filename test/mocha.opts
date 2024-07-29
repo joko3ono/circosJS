@@ -1,1 +1,1 @@
---compilers mocha --reporter html-cov
+--require mocha --reporter html-cov

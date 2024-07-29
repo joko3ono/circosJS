@@ -1,15 +1,19 @@
 import { describe, it } from 'mocha'
-import chai from 'chai'
 import { spy } from 'sinon'
 import sinonChai from 'sinon-chai'
 import jsdom from 'mocha-jsdom'
-import forEach from 'lodash/forEach'
-import { _buildAxesData } from './axes'
-import { select, selectAll } from 'd3-selection'
-import Circos from './circos'
+import forEach from 'lodash-es/forEach.js'
+import { _buildAxesData } from './axes.js'
+import {selection as select, selectAll} from 'd3';
+import Circos from './circos.js'
 
-const expect = chai.expect
-chai.use(sinonChai)
+let chai;
+beforeAll(async () => {
+  chai = await import('chai');
+});
+let { expect, use } = chai;
+
+use(sinonChai)
 
 describe('Axes', () => {
   describe('_buildAxesData', () => {

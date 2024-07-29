@@ -1,19 +1,19 @@
-import defaultsDeep from 'lodash/defaultsDeep'
-import forEach from 'lodash/forEach'
-import isArray from 'lodash/isArray'
-import map from 'lodash/map'
-import {select} from 'd3-selection'
-import Layout from './layout/index'
-import render from './render'
-import Text from './tracks/Text'
-import Highlight from './tracks/Highlight'
-import Histogram from './tracks/Histogram'
-import Chords from './tracks/Chords'
-import Heatmap from './tracks/Heatmap'
-import Line from './tracks/Line'
-import Scatter from './tracks/Scatter'
-import Stack from './tracks/Stack'
-import {initClipboard} from './clipboard'
+import defaultsDeep from 'lodash-es/defaultsDeep.js';
+import forEach from 'lodash-es/forEach.js';
+import isArray from 'lodash-es/isArray.js';
+import map from 'lodash-es/map.js';
+import {selection as select} from 'd3';
+import Layout from './layout/index.js'
+import render from './render.js'
+import Text from './tracks/Text.js'
+import Highlight from './tracks/Highlight.js'
+import Histogram from './tracks/Histogram.js'
+import Chords from './tracks/Chords.js'
+import Heatmap from './tracks/Heatmap.js'
+import Line from './tracks/Line.js'
+import Scatter from './tracks/Scatter.js'
+import Stack from './tracks/Stack.js'
+import {initClipboard} from './clipboard.js'
 
 const defaultConf = {
   width: 700,
@@ -104,9 +104,4 @@ class Core {
   }
 }
 
-const Circos = (conf) => {
-  const instance = new Core(conf)
-  return instance
-}
-
-module.exports = Circos
+export default Core

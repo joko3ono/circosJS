@@ -1,30 +1,32 @@
-const path = require('path')
+const path = require('path');
 
 const filename = process.env.NODE_ENV === 'prod'
-  ? 'circos.min.js' : 'circos.js'
+  ? 'circos.min.js' : 'circos.js';
 
 module.exports = {
   entry: './src/circos.js',
+  mode: 'production',
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: filename,
     library: 'Circos',
-    libraryTarget: 'var'
+    libraryTarget: 'var',
+    globalObject: 'this'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         include: [
-          path.join(__dirname, 'src')
+          path.resolve(__dirname, 'src')
         ],
         exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        use: ['style-loader', 'css-loader']
       }
     ]
   }
-}
+};

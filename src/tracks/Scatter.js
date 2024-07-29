@@ -1,7 +1,7 @@
-import Track from './Track'
-import {parsePositionValueData} from '../data-parser'
-import assign from 'lodash/assign'
-import {radial, axes, common, values} from '../configs'
+import Track from './Track.js'
+import {parsePositionValueData} from '../data-parser.js'
+import assign from 'lodash-es/assign.js'
+import {radial, axes, common, values} from '../configs.js'
 import {
   symbol,
   symbolCircle,

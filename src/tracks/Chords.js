@@ -1,12 +1,12 @@
-import Track from './Track'
-import {parseChordData} from '../data-parser'
-import {registerTooltip} from '../behaviors/tooltip'
+import Track from './Track.js'
+import {parseChordData} from '../data-parser.js'
+import {registerTooltip} from '../behaviors/tooltip.js'
 import {ribbon} from 'd3-chord'
-import assign from 'lodash/assign'
-import isFunction from 'lodash/isFunction'
-import {event} from 'd3-selection'
+import assign from 'lodash-es/assign.js'
+import isFunction from 'lodash-es/isFunction.js'
+import {selection as event} from 'd3';
 
-import {common, values} from '../configs'
+import {common, values} from '../configs.js'
 
 const defaultConf = assign({
   color: {

@@ -1,9 +1,9 @@
-import Track from './Track'
-import {parseSpanValueData} from '../data-parser'
+import Track from './Track.js'
+import {parseSpanValueData} from '../data-parser.js'
 import {arc} from 'd3-shape'
-import assign from 'lodash/assign'
-import forEach from 'lodash/forEach'
-import {axes, radial, values, common} from '../configs'
+import assign from 'lodash-es/assign.js'
+import forEach from 'lodash-es/forEach.js'
+import {axes, radial, values, common} from '../configs.js'
 
 const defaultConf = assign({
   color: {

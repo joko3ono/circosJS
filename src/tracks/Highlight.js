@@ -1,7 +1,7 @@
-import Track from './Track'
-import {parseSpanStringData} from '../data-parser'
-import assign from 'lodash/assign'
-import {radial, common} from '../configs'
+import Track from './Track.js'
+import {parseSpanStringData} from '../data-parser.js'
+import assign from 'lodash-es/assign.js'
+import {radial, common} from '../configs.js'
 import {arc} from 'd3-shape'
 
 const defaultConf = assign({

@@ -1,8 +1,8 @@
-import Track from './Track'
-import {parsePositionTextData} from '../data-parser'
-import forEach from 'lodash/forEach'
-import assign from 'lodash/assign'
-import {common, radial} from '../configs'
+import Track from './Track.js'
+import {parsePositionTextData} from '../data-parser.js'
+import forEach from 'lodash-es/forEach.js'
+import assign from 'lodash-es/assign.js'
+import {common, radial} from '../configs.js'
 
 const defaultConf = assign({
   style: {

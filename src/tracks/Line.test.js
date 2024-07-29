@@ -1,9 +1,13 @@
 import { describe, it } from 'mocha'
-import { expect } from 'chai'
 import jsdom from 'mocha-jsdom'
-import { select } from 'd3-selection'
-import forEach from 'lodash/forEach'
-import Circos from '../circos'
+import {selection as select} from 'd3';
+import forEach from 'lodash-es/forEach.js'
+import Circos from '../circos.js'
+let chai;
+beforeAll(async () => {
+  chai = await import('chai');
+});
+let { expect } = chai;
 
 describe('Line', () => {
   jsdom()

@@ -1,4 +1,4 @@
-import isFunction from 'lodash/isFunction'
+import isFunction from 'lodash-es/isFunction.js'
 import {scaleLog, scaleSequential} from 'd3-scale'
 
 import {

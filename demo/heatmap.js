@@ -1,5 +1,5 @@
 
-function drawCircos(error, months, electricalConsumption, daysOff) {
+function drawHeatmap(error, months, electricalConsumption, daysOff) {
   var width = document.getElementsByClassName('mdl-card__supporting-text')[0].offsetWidth
   var circosHeatmap = new Circos({
         container: '#heatmapChart',
@@ -59,8 +59,14 @@ function drawCircos(error, months, electricalConsumption, daysOff) {
       .render()
 }
 
-d3.queue()
-  .defer(d3.json, './data/months.json')
-  .defer(d3.csv, './data/electrical-consumption.csv')
-  .defer(d3.csv, './data/days-off.csv')
-  .await(drawCircos)
+Promise.all([
+  d3.json('./data/months.json'),
+  d3.csv('./data/electrical-consumption.csv'),
+  d3.csv('./data/days-off.csv')
+])
+.then(([monthsData, electricalConsumptionData, daysOffData]) => {
+  drawHeatmap(null, monthsData, electricalConsumptionData, daysOffData);
+})
+.catch(error => {
+  console.error('Error fetching data:', error);
+});

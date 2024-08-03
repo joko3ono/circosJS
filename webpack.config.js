@@ -1,27 +1,26 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   entry: './src/circos.js',
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'circos.es6.js',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        include: [
-          path.join(__dirname, 'src')
-        ],
+        use: 'babel-loader',
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        use: ['style-loader', 'css-loader']
       }
     ]
   }
-}
+};

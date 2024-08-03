@@ -16,11 +16,11 @@ var gieStainColor = {
 var buildData = function (rawData1, rawData2, karyotype) {
   var binLength = 10000000
   var data = []
-  var rawDataByChr1 = d3.nest().key(function (d) { return d.chr }).entries(rawData1)
-  var rawDataByChr2 = d3.nest().key(function (d) { return d.chr }).entries(rawData2)
+  var rawDataByChr1 = d3.group(rawData1, d => { return d.chr});
+  var rawDataByChr2 = d3.group(rawData2, d => d['chr']);
   karyotype.forEach(function (chr) {
-    var raw1 = rawDataByChr1.filter(function (d) { return d.key === chr.id })[0].values
-    var raw2 = rawDataByChr2.filter(function (d) { return d.key === chr.id })[0].values
+    var raw1 = rawDataByChr1.get(chr.id)
+    var raw2 = rawDataByChr2.get(chr.id)
     d3.range(0, chr.len, binLength).forEach(function (position) {
       var counter = 0
       raw1.forEach(function (datum) {
@@ -48,7 +48,7 @@ var buildData = function (rawData1, rawData2, karyotype) {
   return data
 }
 
-var drawCircos = function (error, GRCh37, cytobands, es, ips) {
+var drawHistogram = function (error, GRCh37, cytobands, es, ips) {
   var width = document.getElementsByClassName('mdl-card__supporting-text')[0].offsetWidth
   var circos = new Circos({
     container: '#histogramChart',
@@ -100,9 +100,15 @@ var drawCircos = function (error, GRCh37, cytobands, es, ips) {
     .render()
 }
 
-d3.queue()
-  .defer(d3.json, './data/GRCh37.json')
-  .defer(d3.csv, './data/cytobands.csv')
-  .defer(d3.csv, './data/es.csv')
-  .defer(d3.csv, './data/ips.csv')
-  .await(drawCircos)
+Promise.all([
+  d3.json('./data/grch37.json'),
+  d3.csv('./data/cytobands.csv'),
+  d3.csv('./data/es.csv'),
+  d3.csv('./data/ips.csv')
+])
+.then(([GRCh37, cytobands, es, ips]) => {
+  drawHistogram(null, GRCh37, cytobands, es, ips)
+})
+.catch(error => {
+  console.error('Error fetching data:', error);
+});

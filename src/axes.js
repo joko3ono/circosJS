@@ -1,6 +1,7 @@
 import range from 'lodash/range'
 import reduce from 'lodash/reduce'
 import {arc} from 'd3-shape'
+import { select, pointer } from 'd3-selection'
 import logger from './logger'
 
 const _buildAxisData = (value, axesGroup, conf) => {
@@ -77,15 +78,16 @@ export const renderAxes = (parentElement, conf, instance, scale) => {
       .attr('stroke', (d) => d.color)
 
   if (conf.showAxesTooltip) {
-    selection.on('mouseover', (d, i) => {
+    selection.on('mouseover', (event) => {
+      const d = select(event.target).data()[0];
       instance.tip
         .html(d.value)
         .transition()
         .style('opacity', 0.9)
-        .style('left', (event.pageX) + 'px')
-        .style('top', (event.pageY - 28) + 'px')
+        .style('left', (pointer(event, selection)[0]) + 'px')
+        .style('top', (pointer(event, selection)[1] - 28) + 'px');
     })
-    selection.on('mouseout', (d, i) => {
+    selection.on('mouseout', (_event) => {
       instance.tip
         .transition()
         .duration(500)

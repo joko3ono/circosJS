@@ -2,7 +2,7 @@ import defaultsDeep from 'lodash/defaultsDeep'
 import forEach from 'lodash/forEach'
 import isArray from 'lodash/isArray'
 import map from 'lodash/map'
-import {select} from 'd3-selection'
+import { select } from 'd3-selection'
 import Layout from './layout/index'
 import render from './render'
 import Text from './tracks/Text'
@@ -109,4 +109,4 @@ const Circos = (conf) => {
   return instance
 }
 
-module.exports = Circos
+export default Circos

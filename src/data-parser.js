@@ -2,19 +2,19 @@ import keys from 'lodash/keys'
 import includes from 'lodash/includes'
 import every from 'lodash/every'
 import map from 'lodash/map'
-import {nest} from 'd3-collection'
+import { group } from 'd3'
 import {min, max} from 'd3-array'
 
 const logger = console
 
 function checkParent (key, index, layoutSummary, header) {
   if (!includes(keys(layoutSummary), key)) {
-    logger.log(
-      1,
-      'datum',
-      'unknown parent id',
-      {line: index + 1, value: key, header: header, layoutSummary: layoutSummary}
-    )
+    // logger.log(
+    //   1,
+    //   'datum',
+    //   'unknown parent id',
+    //   {line: index + 1, value: key, header: header, layoutSummary: layoutSummary}
+    // )
     return false
   }
   return true
@@ -23,12 +23,12 @@ function checkParent (key, index, layoutSummary, header) {
 function checkNumber (keys, index) {
   return every(keys, (value, header) => {
     if (isNaN(value)) {
-      logger.log(
-        1,
-        'datum',
-        'not a number',
-        {line: index + 1, value: value, header: header}
-      )
+      // logger.log(
+      //   1,
+      //   'datum',
+      //   'not a number',
+      //   {line: index + 1, value: value, header: header}
+      // )
       return false
     }
     return true
@@ -48,8 +48,9 @@ function normalize (data, idKeys) {
 }
 
 function buildOutput (data) {
+  const grouped = group(data, (datum) => datum.block_id)
   return {
-    data: nest().key((datum) => datum.block_id).entries(data),
+    data: Array.from(grouped, ([key, values]) => ({ key, values })),
     meta: {
       min: min(data, (d) => d.value),
       max: max(data, (d) => d.value)

@@ -69,7 +69,13 @@ var drawCircos = function (error, GRCh37, cytobands) {
     .render()
 }
 
-d3.queue()
-  .defer(d3.json, './data/GRCh37.json')
-  .defer(d3.csv, './data/cytobands.csv')
-  .await(drawCircos)
+Promise.all([
+  d3.json('./data/GRCh37.json'),
+  d3.csv('./data/cytobands.csv')
+])
+.then(function([GRCh37, cytobands]) {
+  drawCircos(null, GRCh37, cytobands)
+})
+.catch(error => {
+  console.error(error)
+})

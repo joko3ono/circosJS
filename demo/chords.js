@@ -13,7 +13,7 @@ var gieStainColor = {
   select: 'rgb(135,177,255)'
 }
 
-var drawCircos = function (error, GRCh37, cytobands, data) {
+var drawChords = function (error, GRCh37, cytobands, data) {
   var width = document.getElementsByClassName('mdl-card__supporting-text')[0].offsetWidth
   var circos = new Circos({
     container: '#chordsChart',
@@ -92,7 +92,9 @@ var drawCircos = function (error, GRCh37, cytobands, data) {
       opacity: 0.7,
       color: '#ff5722',
       tooltipContent: function (d) {
-        return '<h3>' + d.source.id + ' ➤ ' + d.target.id + ': ' + d.value + '</h3><i>(CTRL+C to copy to clipboard)</i>'
+        if (d.source === undefined) return '';
+
+        return '<h3>' + d.source.id + ' ➤ ' + d.target.id + ': ' + d.values + '</h3><i>(CTRL+C to copy to clipboard)</i>'
       },
       events: {
         'mouseover.demo': function (d, i, nodes, event) {
@@ -104,8 +106,14 @@ var drawCircos = function (error, GRCh37, cytobands, data) {
     .render()
 }
 
-d3.queue()
-  .defer(d3.json, './data/GRCh37.json')
-  .defer(d3.csv, './data/cytobands.csv')
-  .defer(d3.csv, './data/fusion-genes.csv')
-  .await(drawCircos)
+Promise.all([
+  d3.json('./data/GRCh37.json'),
+  d3.csv('./data/cytobands.csv'),
+  d3.csv('./data/fusion-genes.csv')
+])
+.then(([grch37Data, cytobandsData, fusionGenesData]) => {
+  drawChords(null, grch37Data, cytobandsData, fusionGenesData);
+})
+.catch(error => {
+  console.error('Error fetching data:', error);
+});

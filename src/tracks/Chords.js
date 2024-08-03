@@ -4,8 +4,6 @@ import {registerTooltip} from '../behaviors/tooltip'
 import {ribbon} from 'd3-chord'
 import assign from 'lodash/assign'
 import isFunction from 'lodash/isFunction'
-import {event} from 'd3-selection'
-
 import {common, values} from '../configs'
 
 const defaultConf = assign({
@@ -76,7 +74,12 @@ export default class Chords extends Track {
       )
 
     Object.keys(conf.events).forEach((eventName) => {
-      link.on(eventName, function (d, i, nodes) { conf.events[eventName](d, i, nodes, event) })
+      // Assuming `link` is a D3 selection
+      link.on(eventName, function(event, d) {
+        const nodes = this; // `this` refers to the current DOM element
+        const i = d3.select(nodes).datum(); // Get the index or data bound to the element
+        conf.events[eventName](d, i, nodes, event);
+      });
     })
 
     link.attr('fill', conf.colorValue)

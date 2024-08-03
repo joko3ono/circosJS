@@ -20,7 +20,7 @@ var gieStainColor = {
   select: 'rgb(135,177,255)'
 }
 
-var drawCircos = function (error, GRCh37, cytobands) {
+var drawHighlight = function (error, GRCh37, cytobands) {
   data = cytobands.map(function (d) {
     return {
       block_id: d.chrom,
@@ -51,7 +51,13 @@ var drawCircos = function (error, GRCh37, cytobands) {
     .render()
 }
 
-d3.queue()
-  .defer(d3.json, './data/GRCh37.json')
-  .defer(d3.csv, './data/cytobands.csv')
-  .await(drawCircos)
+Promise.all([
+  d3.json('./data/grch37.json'),
+  d3.csv('./data/cytobands.csv'),
+])
+.then(([grch37, cytobands]) => {
+  drawHighlight(null, grch37, cytobands)
+})
+.catch(error => {
+  console.error('Error fetching data:', error);
+});

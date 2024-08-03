@@ -20,7 +20,7 @@ var gieStainColor = {
   select: 'rgb(135,177,255)'
 }
 
-var drawCircos = function (error, GRCh37, cytobands, snp250, snp, snp1m) {
+var drawScatter = function (error, GRCh37, cytobands, snp250, snp, snp1m) {
   GRCh37 = GRCh37.filter(function (d) {
     return d.id === 'chr1' || d.id === 'chr2' || d.id === 'chr3'
   })
@@ -269,10 +269,16 @@ var drawCircos = function (error, GRCh37, cytobands, snp250, snp, snp1m) {
     .render()
 }
 
-d3.queue()
-  .defer(d3.json, './data/GRCh37.json')
-  .defer(d3.csv, './data/cytobands.csv')
-  .defer(d3.csv, './data/snp.density.250kb.txt')
-  .defer(d3.csv, './data/snp.density.txt')
-  .defer(d3.csv, './data/snp.density.1mb.txt')
-  .await(drawCircos)
+Promise.all([
+  d3.json('./data/GRCh37.json'),
+  d3.csv('./data/cytobands.csv'),
+  d3.csv('./data/snp.density.250kb.txt'),
+  d3.csv('./data/snp.density.txt'),
+  d3.csv('./data/snp.density.1mb.txt')
+])
+.then(function (data) {
+  drawScatter(null, data[0], data[1], data[2], data[3], data[4])
+})
+.catch(function (error) {
+  console.error('Error fetching data:', error)
+})

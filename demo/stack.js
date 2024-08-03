@@ -20,7 +20,7 @@ var gieStainColor = {
   select: 'rgb(135,177,255)'
 }
 
-var drawCircos = function (error, GRCh37, cytobands, segdup) {
+var drawStack = function (error, GRCh37, cytobands, segdup) {
   cytobands = cytobands
   .filter(function (d) { return d.chrom === 'chr9' })
   .map(function (d) {
@@ -97,8 +97,10 @@ var drawCircos = function (error, GRCh37, cytobands, segdup) {
     .render()
 }
 
-d3.queue()
-  .defer(d3.json, './data/GRCh37.json')
-  .defer(d3.csv, './data/cytobands.csv')
-  .defer(d3.csv, './data/segdup.csv')
-  .await(drawCircos)
+Promise.all([
+  d3.json('./data/GRCh37.json'),
+  d3.csv('./data/cytobands.csv'),
+  d3.csv('./data/segdup.csv')
+]).then(function (data) {
+  drawStack(null, data[0], data[1], data[2])
+}).catch(function (error) { console.log(error) })

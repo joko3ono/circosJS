@@ -1,14 +1,16 @@
-import { describe, it } from 'mocha'
-import { expect } from 'chai'
-import jsdom from 'mocha-jsdom'
-import { selectAll, select } from 'd3-selection'
+import { JSDOM } from 'jsdom'
+import { select } from 'd3-selection'
 import forEach from 'lodash/forEach'
 import Circos from '../circos'
 
 describe('Heatmap', () => {
-  jsdom()
+  beforeAll(() => {
+    const { window } = new JSDOM('<!doctype html><html><body></body></html>');
+    global.document = window.document;
+    global.window = window;
+  });
 
-  it('should render elements according to configuration', () => {
+  test('should render elements according to configuration', () => {
     document.body.innerHTML = '<div id="chart"></div>'
     new Circos({
       container: '#chart',
@@ -39,11 +41,11 @@ describe('Heatmap', () => {
     ]
 
     const tiles = select('.heatmap1').selectAll('.tile')
-    expect(tiles.size()).to.equal(4)
+    expect(tiles.size()).toBe(4)
     forEach(tiles.nodes(), (tileNode, i) => {
       const tile = select(tileNode)
-      expect(tile.attr('fill')).to.equal(expectedColors[i])
-      expect(tile.attr('opacity')).to.equal('0.8')
+      expect(tile.attr('fill')).toBe(expectedColors[i])
+      expect(tile.attr('opacity')).toBe('0.8')
     })
   })
 })

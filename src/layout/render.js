@@ -1,6 +1,5 @@
 import {arc} from 'd3-shape'
 import {range} from 'd3-array'
-import {event} from 'd3-selection'
 
 function renderLayoutLabels (conf, block) {
   const radius = conf.innerRadius + conf.labels.radialOffset
